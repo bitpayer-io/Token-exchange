@@ -23,9 +23,9 @@
   
   
 ------------------------------------------------------------------------------------------------------
- Copyright (c) 2019 Onwards Bitpayer Inc. ( https://dex.bitpayer.io )
- Contract designed with ❤ by EtherAuthority  ( https://EtherAuthority.io )
- Powered by Satoshicentre (https://satoshicentre.tech)
+ Copyright (c) 2019 Onwards Bitpayer Inc.
+ Contract designed with ❤ by EtherAuthorit
+ Powered by Satoshicentre 
 ------------------------------------------------------------------------------------------------------
 */
 
