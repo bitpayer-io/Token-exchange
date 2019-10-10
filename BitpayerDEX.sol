@@ -24,7 +24,7 @@
   
 ------------------------------------------------------------------------------------------------------
  Copyright (c) 2019 Onwards Bitpayer Inc.
- Contract designed with ❤ by EtherAuthorit
+ Contract designed with ❤ by EtherAuthority
  Powered by Satoshicentre 
 ------------------------------------------------------------------------------------------------------
 */
