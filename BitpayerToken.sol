@@ -39,9 +39,9 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 
 
 -------------------------------------------------------------------
- Copyright (c) 2019 onwards Bitpayer IO ( https://bitpayer.io )
- Contract designed with ❤ by EtherAuthority ( https://EtherAuthority.io )
- Powered by Satoshicentre (https://satoshicentre.tech)
+ Copyright (c) 2019 onwards Bitpayer IO
+ Contract designed with ❤ by EtherAuthorit
+ Powered by Satoshicentre 
 -------------------------------------------------------------------
 */ 
 
