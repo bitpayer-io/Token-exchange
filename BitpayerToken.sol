@@ -1,88 +1,150 @@
-pragma solidity 0.5.11; /*
-
-___________________________________________________________________
-  _      _                                        ______           
-  |  |  /          /                                /              
---|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
-__/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
-
-
-
-██████╗ ██╗████████╗██████╗  █████╗ ██╗   ██╗███████╗██████╗     ████████╗ ██████╗ ██╗  ██╗███████╗███╗   ██╗
-██╔══██╗██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗ ██╔╝██╔════╝██╔══██╗    ╚══██╔══╝██╔═══██╗██║ ██╔╝██╔════╝████╗  ██║
-██████╔╝██║   ██║   ██████╔╝███████║ ╚████╔╝ █████╗  ██████╔╝       ██║   ██║   ██║█████╔╝ █████╗  ██╔██╗ ██║
-██╔══██╗██║   ██║   ██╔═══╝ ██╔══██║  ╚██╔╝  ██╔══╝  ██╔══██╗       ██║   ██║   ██║██╔═██╗ ██╔══╝  ██║╚██╗██║
-██████╔╝██║   ██║   ██║     ██║  ██║   ██║   ███████╗██║  ██║       ██║   ╚██████╔╝██║  ██╗███████╗██║ ╚████║
-╚═════╝ ╚═╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝       ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝
-                                                                                                             
-
-
-
-=== 'Bitpayer' Token contract with following features ===
-    => ERC20 Compliance
-    => Higher degree of control by owner - safeguard functionality
-    => SafeMath implementation 
-    => Burnable and minting 
-
-
-======================= Quick Stats ===================
-    => Name        : Bitpayer Token
-    => Symbol      : BPT
-    => Total supply: 8,000,000,000 (8 Billion)
-    => Decimals    : 9
-
-
-============= Independant Audit of the code ============
-    => Multiple Freelancers Auditors
-    => Community Audit by Bug Bounty program
-
-
--------------------------------------------------------------------
- Copyright (c) 2019 onwards Bitpayer IO
- Contract designed with ❤ by EtherAuthorit
- Powered by Satoshicentre 
--------------------------------------------------------------------
-*/ 
-
-
-
-
-//*******************************************************************//
-//------------------------ SafeMath Library -------------------------//
-//*******************************************************************//
 /**
-    * @title SafeMath
-    * @dev Math operations with safety checks that throw on error
-    */
+ *Submitted for verification at Etherscan.io on 2019-10-12
+*/
+
+pragma solidity 0.5.12;  /*
+ 
+ 
+ 
+ 
+    ___________________________________________________________________
+      _      _                                        ______           
+      |  |  /          /                                /              
+    --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
+      |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
+    __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
+    
+              
+
+
+
+
+██████╗ ██╗████████╗██████╗  █████╗ ██╗   ██╗███████╗██████╗     ██████╗ ███████╗██╗  ██╗
+██╔══██╗██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗ ██╔╝██╔════╝██╔══██╗    ██╔══██╗██╔════╝╚██╗██╔╝
+██████╔╝██║   ██║   ██████╔╝███████║ ╚████╔╝ █████╗  ██████╔╝    ██║  ██║█████╗   ╚███╔╝ 
+██╔══██╗██║   ██║   ██╔═══╝ ██╔══██║  ╚██╔╝  ██╔══╝  ██╔══██╗    ██║  ██║██╔══╝   ██╔██╗ 
+██████╔╝██║   ██║   ██║     ██║  ██║   ██║   ███████╗██║  ██║    ██████╔╝███████╗██╔╝ ██╗
+╚═════╝ ╚═╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝
+                                                                                         
+                                                                                                 
+                                                                 
+
+
+                                                                                     
+                                                                                     
+------------------------------------------------------------------------------------------------------
+ Copyright (c) 2019 Onwards Bitpayer DEX Inc. ( https://bitpayer.io )
+ Contract designed with ❤ by EtherAuthority  ( https://EtherAuthority.io )
+------------------------------------------------------------------------------------------------------
+*/
+
+
+//*******************************************************************
+//------------------------ SafeMath Library -------------------------
+//*******************************************************************
 library SafeMath {
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    if (a == 0) {
-        return 0;
-    }
-    uint256 c = a * b;
-    require(c / a == b, 'SafeMath mul failed');
-    return c;
-    }
-
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-    // assert(b > 0); // Solidity automatically throws when dividing by 0
-    uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-    return c;
-    }
-
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-    require(b <= a, 'SafeMath sub failed');
-    return a - b;
-    }
-
+    /**
+     * @dev Returns the addition of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `+` operator.
+     *
+     * Requirements:
+     * - Addition cannot overflow.
+     */
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
-    uint256 c = a + b;
-    require(c >= a, 'SafeMath add failed');
-    return c;
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, reverting on
+     * overflow (when the result is negative).
+     *
+     * Counterpart to Solidity's `-` operator.
+     *
+     * Requirements:
+     * - Subtraction cannot overflow.
+     */
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b <= a, "SafeMath: subtraction overflow");
+        uint256 c = a - b;
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the multiplication of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `*` operator.
+     *
+     * Requirements:
+     * - Multiplication cannot overflow.
+     */
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
+        // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
+        if (a == 0) {
+            return 0;
+        }
+
+        uint256 c = a * b;
+        require(c / a == b, "SafeMath: multiplication overflow");
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the integer division of two unsigned integers. Reverts on
+     * division by zero. The result is rounded towards zero.
+     *
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity
+     * uses an invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     * - The divisor cannot be zero.
+     */
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        // Solidity only automatically asserts when dividing by 0
+        require(b > 0, "SafeMath: division by zero");
+        uint256 c = a / b;
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * Reverts when dividing by zero.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     * - The divisor cannot be zero.
+     */
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b != 0, "SafeMath: modulo by zero");
+        return a % b;
     }
 }
+
+
+interface ERC20Essential 
+{
+
+    function transfer(address _to, uint256 _amount) external returns (bool);
+    function transferFrom(address _from, address _to, uint256 _amount) external returns (bool);
+
+}
+
+
 
 
 //*******************************************************************//
@@ -90,10 +152,11 @@ library SafeMath {
 //*******************************************************************//
     
 contract owned {
-    address payable public owner;
-    address payable internal newOwner;
+    address public owner;
+    address public newOwner;
 
-    event OwnershipTransferred(address indexed _from, address indexed _to);
+
+    event OwnershipTransferred(uint256 curTime, address indexed _from, address indexed _to);
 
     constructor() public {
         owner = msg.sender;
@@ -104,243 +167,282 @@ contract owned {
         _;
     }
 
-    function transferOwnership(address payable _newOwner) public onlyOwner {
+
+    function onlyOwnerTransferOwnership(address _newOwner) public onlyOwner {
         newOwner = _newOwner;
     }
 
     //this flow is to prevent transferring ownership to wrong wallet by mistake
     function acceptOwnership() public {
         require(msg.sender == newOwner);
-        emit OwnershipTransferred(owner, newOwner);
+        emit OwnershipTransferred(now, owner, newOwner);
         owner = newOwner;
         newOwner = address(0);
     }
 }
- 
-
-    
-//****************************************************************************//
-//---------------------        MAIN CODE STARTS HERE     ---------------------//
-//****************************************************************************//
-    
-contract BitpayerToken is owned {
-    
-
-    /*===============================
-    =         DATA STORAGE          =
-    ===============================*/
-
-    // Public variables of the token
-    using SafeMath for uint256;
-    string constant public name = "Bitpayer Token";
-    string constant public symbol = "BPT";
-    uint256 constant public decimals = 9;
-    uint256 public totalSupply = 8000000000 * (10**decimals);   //8 billion tokens
-    uint256 constant public maxSupply = 8000000000 * (10**decimals);   //8 billion tokens
-    bool public safeguard = false;  //putting safeguard on will halt all non-owner functions
-
-    // This creates a mapping with all data storage
-    mapping (address => uint256) public balanceOf;
-    mapping (address => mapping (address => uint256)) public allowance;
-    mapping (address => bool) public frozenAccount;
-
-
-    /*===============================
-    =         PUBLIC EVENTS         =
-    ===============================*/
-
-    // This generates a public event of token transfer
-    event Transfer(address indexed from, address indexed to, uint256 value);
-
-    // This notifies clients about the amount burnt
-    event Burn(address indexed from, uint256 value);
-        
-    // This generates a public event for frozen (blacklisting) accounts
-    event FrozenAccounts(address target, bool frozen);
-    
-    // This will log approval of token Transfer
-    event Approval(address indexed from, address indexed spender, uint256 value);
 
 
 
-    /*======================================
-    =       STANDARD ERC20 FUNCTIONS       =
-    ======================================*/
+contract BitpayerDEX is owned {
+  using SafeMath for uint256;
+  bool public safeGuard; // To hault all non owner functions in case of imergency - by default false
+  address public feeAccount; //the account that will receive fees
+  uint public tradingFee = 30; // 30 = 0.3%
+  
+  //referrals
+  uint256 public refPercent = 10;  // percent to calculate referal bonous - by default 10% of trading fee
+  
+  mapping (address => mapping (address => uint)) public tokens; //mapping of token addresses to mapping of account balances (token=0 means Ether)
+  mapping (address => mapping (bytes32 => bool)) public orders; //mapping of user accounts to mapping of order hashes to booleans (true = submitted by user, equivalent to offchain signature)
+  mapping (address => mapping (bytes32 => uint)) public orderFills; //mapping of user accounts to mapping of order hashes to uints (amount of order that has been filled)
+  
+  /* Mapping to track referrer. The second address is the address of referrer, the Up-line/ Sponsor */
+  mapping (address => address) public referrers;
+  /* Mapping to track referrer bonus for all the referrers */
+  mapping (address => uint) public referrerBonusBalance;
+  
+  event Order(uint256 curTime, address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires,  address user);
+  event Cancel(uint256 curTime, address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires, address user, uint8 v, bytes32 r, bytes32 s);
+  event Trade(uint256 curTime, address tokenGet, uint amountGet, address tokenGive, uint amountGive, address get, address give);
+  event Deposit(uint256 curTime, address token, address user, uint amount, uint balance);
+  event Withdraw(uint256 curTime, address token, address user, uint amount, uint balance);
+  event OwnerWithdrawTradingFee(address indexed owner, uint256 amount);
+  
+  // Events to track ether transfer to referrers
+  event ReferrerBonus(address indexed referer, address indexed trader, uint256 referralBonus, uint256 timestamp );
+  event ReferrerBonusWithdrawn(address indexed referrer, uint256 indexed amount);
 
-    /* Internal transfer, only can be called by this contract */
-    function _transfer(address _from, address _to, uint _value) internal {
-        
-        //checking conditions
-        require(!safeguard);
-        require (_to != address(0));                      // Prevent transfer to 0x0 address. Use burn() instead
-        require(!frozenAccount[_from]);                     // Check if sender is frozen
-        require(!frozenAccount[_to]);                       // Check if recipient is frozen
-        
-        // overflow and undeflow checked by SafeMath Library
-        balanceOf[_from] = balanceOf[_from].sub(_value);    // Subtract from the sender
-        balanceOf[_to] = balanceOf[_to].add(_value);        // Add the same to the recipient
-        
-        // emit Transfer event
-        emit Transfer(_from, _to, _value);
+  
+
+    constructor() public {
+        feeAccount = msg.sender;
     }
 
-    /**
-        * Transfer tokens
-        *
-        * Send `_value` tokens to `_to` from your account
-        *
-        * @param _to The address of the recipient
-        * @param _value the amount to send
-        */
-    function transfer(address _to, uint256 _value) public returns (bool success) {
-        //no need to check for input validations, as that is ruled by SafeMath
-        _transfer(msg.sender, _to, _value);
-        
-        return true;
-    }
-
-    /**
-        * Transfer tokens from other address
-        *
-        * Send `_value` tokens to `_to` in behalf of `_from`
-        *
-        * @param _from The address of the sender
-        * @param _to The address of the recipient
-        * @param _value the amount to send
-        */
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        require(_value <= allowance[_from][msg.sender]);     // Check allowance
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);
-        _transfer(_from, _to, _value);
-        return true;
-    }
-
-    /**
-        * Set allowance for other address
-        *
-        * Allows `_spender` to spend no more than `_value` tokens in your behalf
-        *
-        * @param _spender The address authorized to spend
-        * @param _value the max amount they can spend
-        */
-    function approve(address _spender, uint256 _value) public returns (bool success) {
-        require(!safeguard);
-        require(balanceOf[msg.sender] >= _value, "Balance does not have enough tokens");
-        allowance[msg.sender][_spender] = _value;
-        emit Approval(msg.sender, _spender, _value);
-        return true;
-    }
-
-
-    /*=====================================
-    =       CUSTOM PUBLIC FUNCTIONS       =
-    ======================================*/
-    
-    constructor() public{
-        //sending all the tokens to Owner
-        balanceOf[owner] = totalSupply;
-        
-        //firing event which logs this transaction
-        emit Transfer(address(0), owner, totalSupply);
-    }
-    
-    function () external payable {
-        
-    }
-
-    /**
-        * Destroy tokens
-        *
-        * Remove `_value` tokens from the system irreversibly
-        *
-        * @param _value the amount of money to burn
-        */
-    function burn(uint256 _value) public returns (bool success) {
-        require(!safeguard);
-        //checking of enough token balance is done by SafeMath
-        balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);  // Subtract from the sender
-        totalSupply = totalSupply.sub(_value);                      // Updates totalSupply
-        emit Burn(msg.sender, _value);
-        emit Transfer(msg.sender, address(0), _value);
-        return true;
-    }
-
-    /**
-        * Destroy tokens from other account
-        *
-        * Remove `_value` tokens from the system irreversibly on behalf of `_from`.
-        *
-        * @param _from the address of the sender
-        * @param _value the amount of money to burn
-        */
-    function burnFrom(address _from, uint256 _value) public returns (bool success) {
-        require(!safeguard);
-        //checking of allowance and token value is done by SafeMath
-        balanceOf[_from] = balanceOf[_from].sub(_value);                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value); // Subtract from the sender's allowance
-        totalSupply = totalSupply.sub(_value);                                   // Update totalSupply
-        emit  Burn(_from, _value);
-        emit Transfer(_from, address(0), _value);
-        return true;
-    }
-        
-    
-    /** 
-        * @notice `freeze? Prevent | Allow` `target` from sending & receiving tokens
-        * @param target Address to be frozen
-        * @param freeze either to freeze it or not
-        */
-    function freezeAccount(address target, bool freeze) onlyOwner public {
-        frozenAccount[target] = freeze;
-        emit  FrozenAccounts(target, freeze);
-    }
-    
-    /** 
-        * @notice Create `mintedAmount` tokens and send it to `target`
-        * @param target Address to receive the tokens
-        * @param mintedAmount the amount of tokens it will receive
-        */
-    function mintToken(address target, uint256 mintedAmount) onlyOwner public {
-		    require(totalSupply + mintedAmount <= maxSupply, "Total supply can not exceed maximum supply of 8,000,000,000");
-        balanceOf[target] = balanceOf[target].add(mintedAmount);
-        totalSupply = totalSupply.add(mintedAmount);
-        emit Transfer(address(0), target, mintedAmount);
-    }
-
-        
-
-    /**
-        * Owner can transfer tokens from contract to owner address
-        *
-        * When safeguard is true, then all the non-owner functions will stop working.
-        * When safeguard is false, then all the functions will resume working back again!
-        */
-    
-    function manualWithdrawTokens(uint256 tokenAmount) public onlyOwner{
-        // no need for overflow checking as that will be done in transfer function
-        _transfer(address(this), owner, tokenAmount);
-    }
-    
-    //Just in rare case, owner wants to transfer Ether from contract to owner address
-    function manualWithdrawEther()onlyOwner public{
-        address(owner).transfer(address(this).balance);
-    }
-    
-    /**
-        * Change safeguard status on or off
-        *
-        * When safeguard is true, then all the non-owner functions will stop working.
-        * When safeguard is false, then all the functions will resume working back again!
-        */
-    function changeSafeguardStatus() onlyOwner public{
-        if (safeguard == false){
-            safeguard = true;
+    function changeSafeguardStatus() onlyOwner public
+    {
+        if (safeGuard == false)
+        {
+            safeGuard = true;
         }
-        else{
-            safeguard = false;    
+        else
+        {
+            safeGuard = false;    
         }
     }
+
+    //Calculate percent and return result
+    function calculatePercentage(uint256 PercentOf, uint256 percentTo ) internal pure returns (uint256) 
+    {
+        uint256 factor = 10000;
+        require(percentTo <= factor);
+        uint256 c = PercentOf.mul(percentTo).div(factor);
+        return c;
+    }  
+
+
+
+    
+  // contract without fallback automatically reject incoming ether
+  // function() external {  }
+
+
+  function changeFeeAccount(address feeAccount_) public onlyOwner {
+    feeAccount = feeAccount_;
+  }
+
+  function changetradingFee(uint tradingFee_) public onlyOwner{
+    //require(tradingFee_ <= tradingFee);
+    tradingFee = tradingFee_;
+  }
+  
+  function availableTradingFeeOwner() public view returns(uint256){
+      //it only holds ether as fee
+      return tokens[address(0)][feeAccount];
+  }
+  
+  function withdrawTradingFeeOwner() public onlyOwner returns (string memory){
+      uint256 amount = availableTradingFeeOwner();
+      require (amount > 0, 'Nothing to withdraw');
+      
+      tokens[address(0)][feeAccount] = 0;
+      
+      msg.sender.transfer(amount);
+      
+      emit OwnerWithdrawTradingFee(owner, amount);
+      
+  }
+
+  function deposit() public payable {
+    tokens[address(0)][msg.sender] = tokens[address(0)][msg.sender].add(msg.value);
+    emit Deposit(now, address(0), msg.sender, msg.value, tokens[address(0)][msg.sender]);
+  }
+
+  function withdraw(uint amount) public {
+    require(!safeGuard,"System Paused by Admin");
+    require(tokens[address(0)][msg.sender] >= amount);
+    tokens[address(0)][msg.sender] = tokens[address(0)][msg.sender].sub(amount);
+    msg.sender.transfer(amount);
+    emit Withdraw(now, address(0), msg.sender, amount, tokens[address(0)][msg.sender]);
+  }
+
+  function depositToken(address token, uint amount) public {
+    //remember to call Token(address).approve(this, amount) or this contract will not be able to do the transfer on your behalf.
+    require(token!=address(0));
+    require(ERC20Essential(token).transferFrom(msg.sender, address(this), amount));
+    tokens[token][msg.sender] = tokens[token][msg.sender].add(amount);
+    emit Deposit(now, token, msg.sender, amount, tokens[token][msg.sender]);
+  }
+	
+  function withdrawToken(address token, uint amount) public {
+    require(!safeGuard,"System Paused by Admin");
+    require(token!=address(0));
+    require(tokens[token][msg.sender] >= amount);
+    tokens[token][msg.sender] = tokens[token][msg.sender].sub(amount);
+	  ERC20Essential(token).transfer(msg.sender, amount);
+    emit Withdraw(now, token, msg.sender, amount, tokens[token][msg.sender]);
+  }
+
+  function balanceOf(address token, address user) public view returns (uint) {
+    return tokens[token][user];
+  }
+
+  function order(address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires) public {
+    bytes32 hash = keccak256(abi.encodePacked(this, tokenGet, amountGet, tokenGive, amountGive, expires));
+    orders[msg.sender][hash] = true;
+    emit Order(now, tokenGet, amountGet, tokenGive, amountGive, expires, msg.sender);
+  }
+
+
+    /* address[4] addressArray elements
+        0 = tokenGet
+        1 = tokenGive
+        2 = tradeMaker
+        3 = referrer
+    */
+  function trade(address[4] memory addressArray, uint amountGet, uint amountGive, uint expires, uint8 v, bytes32 r, bytes32 s, uint amount) public {
+    require(!safeGuard,"System Paused by Admin");
+    //amount is in amountGet terms
+    bytes32 hash = keccak256(abi.encodePacked(this, addressArray[0], amountGet, addressArray[1], amountGive, expires));
+    require((
+      (orders[addressArray[2]][hash] || ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash)),v,r,s) == addressArray[2]) &&
+      block.number <= expires &&
+      orderFills[addressArray[2]][hash].add(amount) <= amountGet
+    ));
+    tradeBalances(addressArray[0], amountGet, addressArray[1], amountGive, addressArray[2], amount, addressArray[3]);
+    orderFills[addressArray[2]][hash] = orderFills[addressArray[2]][hash].add(amount);
     
     
+    emit Trade(now, addressArray[0], amount, addressArray[1], amountGive * amount / amountGet, addressArray[2], msg.sender);
+  }
+
+  function tradeBalances(address tokenGet, uint amountGet, address tokenGive, uint amountGive, address user, uint amount, address referrer) internal {
+    
+    uint tradingFeeXfer = calculatePercentage(amount,tradingFee);
+    
+    //processing referrers bonus - which is % of the trading fee
+    processReferrerBonus(referrer, tradingFeeXfer);
+
+    tokens[tokenGet][msg.sender] = tokens[tokenGet][msg.sender].sub(amount.add(tradingFeeXfer));
+    tokens[tokenGet][user] = tokens[tokenGet][user].add(amount.sub(tradingFeeXfer));
+    tokens[address(0)][feeAccount] = tokens[address(0)][feeAccount].add(tradingFeeXfer);
+
+    tokens[tokenGive][user] = tokens[tokenGive][user].sub(amountGive.mul(amount) / amountGet);
+    tokens[tokenGive][msg.sender] = tokens[tokenGive][msg.sender].add(amountGive.mul(amount) / amountGet);
+  }
+  
+  
+
+  function testTrade(address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires, address user, uint8 v, bytes32 r, bytes32 s, uint amount, address sender) public view returns(bool) {
+    
+    if (!(
+      tokens[tokenGet][sender] >= amount &&
+      availableVolume(tokenGet, amountGet, tokenGive, amountGive, expires, user, v, r, s) >= amount
+    )) return false;
+    return true;
+  }
+
+  function availableVolume(address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires, address user, uint8 v, bytes32 r, bytes32 s) public view returns(uint) {
+    bytes32 hash = keccak256(abi.encodePacked(this, tokenGet, amountGet, tokenGive, amountGive, expires));
+    uint available1;
+    if (!(
+      (orders[user][hash] || ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash)),v,r,s) == user) &&
+      block.number <= expires
+    )) return 0;
+    available1 = tokens[tokenGive][user].mul(amountGet) / amountGive;
+    
+    if (amountGet.sub(orderFills[user][hash])<available1) return amountGet.sub(orderFills[user][hash]);
+    return available1;
+    
+  }
+
+  function amountFilled(address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires, address user) public view returns(uint) {
+    bytes32 hash = keccak256(abi.encodePacked(this, tokenGet, amountGet, tokenGive, amountGive, expires));
+    return orderFills[user][hash];
+  }
+
+  function cancelOrder(address tokenGet, uint amountGet, address tokenGive, uint amountGive, uint expires, uint8 v, bytes32 r, bytes32 s) public {
+    require(!safeGuard,"System Paused by Admin");
+    bytes32 hash = keccak256(abi.encodePacked(this, tokenGet, amountGet, tokenGive, amountGive, expires));
+    require((orders[msg.sender][hash] || ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash)),v,r,s) == msg.sender));
+    orderFills[msg.sender][hash] = amountGet;
+    emit Cancel(now, tokenGet, amountGet, tokenGive, amountGive, expires, msg.sender, v, r, s);
+  }
+
+
+
+//==================================================//
+//              REFERRAL SECTION CODE               //
+//==================================================//
+
+function processReferrerBonus(address _referrer, uint256 _tradingFeeLocal) internal {
+      
+      address existingReferrer = referrers[msg.sender];
+      
+      if(_referrer != address(0) && existingReferrer != address(0) ){
+        referrerBonusBalance[existingReferrer] += _tradingFeeLocal * refPercent / 100;
+        emit ReferrerBonus(_referrer, msg.sender, _tradingFeeLocal * refPercent / 100, now );
+      }
+      else if(_referrer != address(0) && existingReferrer == address(0) ){
+        //no referrer exist, but provided in trade function call
+        referrerBonusBalance[_referrer] += _tradingFeeLocal * refPercent / 100;
+        referrers[msg.sender] = _referrer;
+        emit ReferrerBonus(_referrer, msg.sender, _tradingFeeLocal * refPercent / 100, now );
+      }
+  }
+  
+  function changeRefPercent(uint256 newRefPercent) public onlyOwner returns (string memory){
+      require(newRefPercent <= 100, 'newRefPercent can not be more than 100');
+      refPercent = newRefPercent;
+      return "refPool fee updated successfully";
+  }
+  
+  /**
+        * Function will allow users to withdraw their referrer bonus  
+    */
+    function claimReferrerBonus() public returns(bool) {
+        
+        address payable msgSender = msg.sender;
+        
+        uint256 referralBonus = referrerBonusBalance[msgSender];
+        
+        require(referralBonus > 0, 'Insufficient referrer bonus');
+        referrerBonusBalance[msgSender] = 0;
+        
+        
+        //transfer the referrer bonus
+        msgSender.transfer(referralBonus);
+        
+        //fire event
+        emit ReferrerBonusWithdrawn(msgSender, referralBonus);
+        
+        return true;
+    }
+
+
+
+
+
+
+
 
 }
